@@ -1,0 +1,37 @@
+{
+  "name": "okapi",
+  "version": "1.0.0",
+  "description": "Okapi charity token contract",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sacred-danny/okapi-charity-contract.git"
+  },
+  "author": "sacred-danny",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sacred-danny/okapi-charity-contract/issues"
+  },
+  "homepage": "https://github.com/sacred-danny/okapi-charity-contract#readme",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^2.0.0",
+    "hardhat": "^2.12.2"
+  },
+  "dependencies": {
+    "@chainlink/contracts": "^0.5.1",
+    "@nomiclabs/hardhat-etherscan": "^3.1.1",
+    "@nomiclabs/hardhat-waffle": "^2.0.3",
+    "@openzeppelin/contracts": "^4.7.3",
+    "@pancakeswap-libs/pancake-swap-core": "^0.1.0",
+    "@thesolidchain/pancake-swap-periphery": "^1.1.0-beta.0",
+    "@uniswap/v2-core": "github:pancakeswap/pancake-swap-core",
+    "@uniswap/v2-periphery": "^1.1.0-beta.0",
+    "dotenv": "^16.0.3",
+    "ethers": "^5.7.2",
+    "typescript": "^4.8.4",
+    "web3": "^1.8.0"
+  }
+}
