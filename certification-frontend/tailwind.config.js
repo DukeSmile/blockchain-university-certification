@@ -1,5 +1,5 @@
 const colors = require('tailwindcss/colors')
-const scrollbarHide = require('tailwind-scrollbar-hide')
+// const scrollbarHide = require('tailwind-scrollbar-hide')
 
 function range(start, end, increment = 1) {
   const count = Math.floor((end - start + 1) / increment);
@@ -990,8 +990,8 @@ module.exports = {
     wordBreak: ['responsive'],
     zIndex: ['responsive', 'focus-within', 'focus'],
   },
-  plugins: [
-    scrollbarHide
-  ],
+  // plugins: [
+  //   scrollbarHide
+  // ],
 }
 

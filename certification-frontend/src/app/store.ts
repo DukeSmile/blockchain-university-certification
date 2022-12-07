@@ -1,17 +1,11 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import { configureStore } from '@reduxjs/toolkit';
 
-export const store = configureStore({
+import certificationSlice from './slices/certificationReducer';
+
+const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    app: certificationSlice
   },
+  middleware: getDefaultMiddleware => getDefaultMiddleware({ serializableCheck: false }),
 });
-
-export type AppDispatch = typeof store.dispatch;
-export type RootState = ReturnType<typeof store.getState>;
-export type AppThunk<ReturnType = void> = ThunkAction<
-  ReturnType,
-  RootState,
-  unknown,
-  Action<string>
->;
+export default store;
