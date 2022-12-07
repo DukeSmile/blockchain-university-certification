@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.14;
 import "@openzeppelin/contracts/access/AccessControl.sol";
-contract BUCertificatioin is AccessControl {
+contract BUCertification is AccessControl {
     struct Catalog {
         string photo;
         string name;
@@ -43,5 +43,14 @@ contract BUCertificatioin is AccessControl {
         });
         _setupRole(STUDENT_ROLE, student_address);
         emit GenerateCertification(student_address, block.timestamp);
+    }
+
+    function getCertification() external view returns (Documents memory) {
+        require (hasRole(STUDENT_ROLE, msg.sender), 'There is no certification matched with your wallet');
+        return certifications[msg.sender];
+    }
+    function getCertification(address student_address) external view returns (Documents memory) {
+        require (hasRole(INSTITUTE_ROLE, msg.sender), "You don't have INSTITUTE role");
+        return certifications[student_address];
     }
 }
