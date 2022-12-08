@@ -1,7 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { processProp } from '../../core/interfaces/base';
 
-const initialState = {
-  value: 0
+type initialStateProp = {
+  processes: processProp[];
+}
+
+const initialState:initialStateProp = {
+  processes: []
 };
 
 export const certificationSlice = createSlice({
@@ -9,13 +14,21 @@ export const certificationSlice = createSlice({
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
-    setCharities: (state, { payload }) => {
-      state.value = payload;
+    initProcesses: (state, { payload }) => {
+      state.processes = payload;
+    },
+    updateSubjectMark: (state, { payload }) => {
+      state.processes[payload.pIndex]['subjects'][payload.sIndex]['mark'] = payload.value;
+    },
+    updateSubjectUnit: (state, { payload }) => {
+      state.processes[payload.pIndex]['subjects'][payload.sIndex]['unit'] = payload.value;
     }
   }
 });
 
 export const { 
-  setCharities
+  initProcesses,
+  updateSubjectMark,
+  updateSubjectUnit
 } = certificationSlice.actions;
 export default certificationSlice.reducer;

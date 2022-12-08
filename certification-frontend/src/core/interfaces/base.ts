@@ -7,3 +7,13 @@ export interface RouteItemProp {
 export interface processSubjectProp {
     [key:string] : string // title of subjects
 }
+
+export interface subjectProp {
+    title: string;
+    mark: number;
+    unit: number;
+}
+export interface processProp {
+    name: string;
+    subjects: subjectProp[];
+}
