@@ -5,7 +5,7 @@ import { IFrameEthereumProvider } from "@ledgerhq/iframe-provider";
 import React, { useState, ReactElement, useContext, useMemo, useCallback } from "react";
 import Web3Modal from "web3modal";
 
-import { NetworkId, NetworkIds, enabledNetworkIds, FromNetwork } from "../../networks";
+import { NetworkId, enabledNetworkIds, FromNetwork } from "../../networks";
 import { chains } from "../../providers";
 
 /**
