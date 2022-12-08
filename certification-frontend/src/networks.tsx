@@ -1,5 +1,5 @@
-import UniversityCertContractABI from './abi/UniversityCertContractABI.json';
 
+import UniversityCertContractABI from './abi/UniversityCertContractABI.json';
 export type NetworkId = number;
 
 export enum NetworkIds {
@@ -10,7 +10,7 @@ export enum NetworkIds {
   BscTestnet = 97,
 }
 
-export const FromNetwork = NetworkIds.Rinkeby;
+export const FromNetwork = NetworkIds.BscTestnet;
 
 interface INetwork {
   name: string,
@@ -28,7 +28,7 @@ export const networks: INetworks = {
     name: 'Ethereum Goerli',
     isEnabled: true,
     addresses: {
-      UniversityCertContract: '0xD6B2fC46FF8B00025F5f1bc0Ec7cA3c8818d67D5'
+      UniversityCertContract: ''
     }
   },
   [NetworkIds.Ethereum]: {
@@ -51,7 +51,7 @@ export const networks: INetworks = {
     name: 'BSC Testnet',
     isEnabled: true,
     addresses: {
-      UniversityCertContract:'0xE5E1a756E164b619495A55C2699D64Fc538f32B9',
+      UniversityCertContract:'0x90716F234eC9cF8C74FBaE843291fE9dc08ec1a4',
     }
   }
 };

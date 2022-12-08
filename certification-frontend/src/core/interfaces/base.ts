@@ -17,3 +17,7 @@ export interface processProp {
     name: string;
     subjects: subjectProp[];
 }
+
+export interface studentInfoProp {
+    [key:string]: string;
+}
