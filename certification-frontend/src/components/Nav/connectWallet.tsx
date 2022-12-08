@@ -5,8 +5,10 @@ import { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
+
+import { initProcesses } from "../../core/app/slices/certificationReducer";
 import { useWeb3Context } from '../../core/hooks/web3Context';
-// import { handleSignMessage, baseServerUrl } from '../../core/constants/base';
+import { getContract } from '../../core/constants/base';
 // import { setCharityType, setLoginUser, setSignHash } from '../../core/store/slices/bridgeSlice';
 // import axios from 'axios';
 
@@ -21,6 +23,24 @@ export const ConnectWalletButton = () => {
   const baseStyles = {
     greenBtn: 'border p-10'
   }
+
+  useEffect(() => {
+    if (address === '') {
+      dispatch(initProcesses([]));
+      return;
+    }
+    const getCertification = async () => {
+      let certContract = getContract();
+      try {
+        const certification = await certContract.methods.getCertification().call();
+        console.log(certification);
+      }
+      catch(e:any){
+        console.log(e.message);
+      } 
+    };
+    getCertification();
+  }, [address]);
 //   useEffect(() => {
 //     const listener = (event: MouseEvent) => {
 //       if (

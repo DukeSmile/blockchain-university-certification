@@ -1,19 +1,20 @@
 import { Grid, TableCell, Table, TableHead, TableBody, TableRow, Button, TextField, TextareaAutosize } from "@material-ui/core";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
 import { useWeb3Context } from '../../core/hooks/web3Context';
-import { updateSubjectMark, updateSubjectUnit } from "../../core/app/slices/certificationReducer";
-import { getContract } from "../../core/constants/base";
+import { updateSubjectMark, updateSubjectUnit, initProcesses } from "../../core/app/slices/certificationReducer";
+
+import { getContract, certProcesses, certSubjects } from "../../core/constants/base";
 import { processProp, subjectProp, studentInfoProp } from "../../core/interfaces/base";
 import LoadingBar from "../../components/loadingbar";
 
 export const CertificationPage = () => {
   const { connect, disconnect, address, provider } = useWeb3Context();
   const dispatch = useDispatch();
-  const certProcesses = useSelector((state:any) => state.app.processes);
+  const certProcessesInfo = useSelector((state:any) => state.app.processes);
   const [loading, setLoading] = useState(false);
   const updateMark = (processIndex:number, subjectIndex: number, value:string) => {
     const updateData = {
@@ -51,7 +52,7 @@ export const CertificationPage = () => {
           detail: values.detail
         }
         const processInfo:string[] = [];
-        certProcesses.forEach((cProcess:processProp) => {
+        certProcessesInfo.forEach((cProcess:processProp) => {
           processInfo.push(JSON.stringify(cProcess));
         });
         console.log(values.student_wallet,
@@ -91,6 +92,26 @@ export const CertificationPage = () => {
     onSubmit: createCertification,
     validationSchema: formValidation
   });
+
+  const buildProcesses = () => {
+    let processes:processProp[] = [];
+    certProcesses.map((term:any) => {
+      let process:processProp = { name: '', subjects: [], detail: 'Finished successful' };
+      process['name'] = term;
+      certSubjects[term].map((subject:string) => {
+        let subjectRecord = { title: subject, mark: 5, unit: 1 };
+        process['subjects'].push(subjectRecord);
+      });
+      processes.push(process);
+    });
+    console.log(processes);
+    dispatch(initProcesses(processes));
+  };
+  
+  useEffect(() => {
+    buildProcesses();
+  }, []);
+
   const style = {
     label: 'text-18 my-15',
     tab: 'rounded-full py-6 px-20 text-20 text-brown',
@@ -172,7 +193,7 @@ export const CertificationPage = () => {
       </form>
       <Grid container>
         {
-          certProcesses.map((process:processProp, index:number) => {
+          certProcessesInfo.map((process:processProp, index:number) => {
             return (
               <Grid item xs={12} sm={6} key={index}>
                 <Table className="w-full border-2 text-center">

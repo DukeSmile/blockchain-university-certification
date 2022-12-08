@@ -6,7 +6,7 @@ export const NavBar = () => {
   return (
     <div className="w-[80%] mx-auto text-16 font-bold border-b-1 h-50 flex justify-between items-center">
       <div>
-        <Link to="/" className={menuStyle}>Home</Link>
+        <Link to="/" className={menuStyle}>My certification</Link>
         <Link to="/create" className={menuStyle}>Registry</Link>
       </div>
       <ConnectWalletButton />   
