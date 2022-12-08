@@ -1,6 +1,6 @@
 import { Grid, TableCell, Table, TableHead, TableBody, TableRow, Button } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
-import { updateSubjectMark, updateSubjectUnit } from "../../app/slices/certificationReducer";
+import { updateSubjectMark, updateSubjectUnit } from "../../core/app/slices/certificationReducer";
 import { processProp, subjectProp } from "../../core/interfaces/base";
 
 export const CertificationPage = () => {

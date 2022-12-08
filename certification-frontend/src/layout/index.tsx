@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { initProcesses } from "../app/slices/certificationReducer";
+import { initProcesses } from "../core/app/slices/certificationReducer";
 import { NavBar } from "../components/Nav";
 import { certProcesses, certSubjects } from "../core/constants/base";
 import { processProp, subjectProp } from "../core/interfaces/base";

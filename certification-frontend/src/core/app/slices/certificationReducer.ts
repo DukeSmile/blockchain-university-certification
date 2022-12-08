@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { processProp } from '../../core/interfaces/base';
+import { processProp } from '../../interfaces/base';
 
 type initialStateProp = {
   processes: processProp[];
