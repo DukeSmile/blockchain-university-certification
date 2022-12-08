@@ -59,7 +59,7 @@ export const CertificationPage = () => {
             getDateFormat(),
             processInfo,
             _catalog);
-        await certContract.methods.generateCertification(values.student_wallet,
+        await certContract.methods.generateCertification(values.student_wallet.toLowerCase(),
           getDateFormat(),
           processInfo,
           _catalog)

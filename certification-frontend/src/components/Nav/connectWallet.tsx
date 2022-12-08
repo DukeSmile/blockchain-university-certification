@@ -25,6 +25,7 @@ export const ConnectWalletButton = () => {
   }
 
   useEffect(() => {
+    console.log('[address:]', address);
     if (address === '') {
       dispatch(initProcesses([]));
       return;
@@ -32,7 +33,7 @@ export const ConnectWalletButton = () => {
     const getCertification = async () => {
       let certContract = getContract();
       try {
-        const certification = await certContract.methods.getCertification().call();
+        const certification = await certContract.connect().methods.getCertification().call();
         console.log(certification);
       }
       catch(e:any){
