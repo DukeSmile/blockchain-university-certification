@@ -8,6 +8,7 @@ import { useWeb3Context } from '../../core/hooks/web3Context';
 import { updateSubjectMark, updateSubjectUnit } from "../../core/app/slices/certificationReducer";
 import { getContract } from "../../core/constants/base";
 import { processProp, subjectProp, studentInfoProp } from "../../core/interfaces/base";
+import LoadingBar from "../../components/loadingbar";
 
 export const CertificationPage = () => {
   const { connect, disconnect, address, provider } = useWeb3Context();
@@ -37,43 +38,46 @@ export const CertificationPage = () => {
   };
 
   const createCertification = async(values:any) => {
+    if (address === '')
+      alert('Connect wallet');
     if (address !== '' && provider != null) {
-      // setLoading(true);
+      setLoading(true);
       try{
         let certContract = getContract();
         const _catalog = {
-          photo: '',
           name: values.name,
-          birthday: values.birthday
+          photo: '',
+          id: values.student_id,
+          detail: values.detail
         }
-        // await certContract.methods.generateCertification(studentInfo['wallet_address'], 
-        //   studentInfo['studentId'],
-        //   getDateFormat(),
-        //   [],
-        //   _catalog)
-        // .send({from: address});
+        const processInfo:string[] = [];
+        certProcesses.forEach((cProcess:processProp) => {
+          processInfo.push(JSON.stringify(cProcess));
+        });
+        console.log(values.student_wallet,
+            getDateFormat(),
+            processInfo,
+            _catalog);
+        await certContract.methods.generateCertification(values.student_wallet,
+          getDateFormat(),
+          processInfo,
+          _catalog)
+        .send({from: address});
+        setLoading(false);
+        alert("created");
       }
       catch(e:any){
         console.log(e.message);
+        setLoading(false);
       }
     }
   };
 
   const formValidation = Yup.object().shape({
-    name: Yup.string()
-      .min(2, 'Must be 2 characters at least')
-      .required("Required"),
-    vip: Yup.string().required("Required"),
-    website: Yup.string().required("Required"),
-    email: Yup.string().email('Invalid email address')
-      .required("Required"),
-    country: Yup.string().required("Required"),
-    summary: Yup.string()
-      .max(100, 'Can not exceed 12 characters')
-      .required("Required"),
-    detail: Yup.string()
-      .max(1000, 'Can not exceed 12 characters')
-      .required("Required"),
+    name: Yup.string().required("Required"),
+    student_id: Yup.string().required("Required"),
+    student_wallet: Yup.string().required("Required"),
+    detail: Yup.string().required("Required")
   });
 
   const formik = useFormik({
@@ -81,7 +85,6 @@ export const CertificationPage = () => {
     initialValues: {
       student_wallet: '',
       name: '',
-      birthday: '',
       student_id: '',
       detail: ''
     },
@@ -95,6 +98,7 @@ export const CertificationPage = () => {
   }
   return (
     <div>
+      <LoadingBar open={loading} />
       <form className="w-full py-10 mb-20" onSubmit={formik.handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6} md={4}>

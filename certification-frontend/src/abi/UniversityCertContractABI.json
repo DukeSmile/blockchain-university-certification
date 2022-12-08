@@ -121,14 +121,14 @@
         "name": "student_address",
         "type": "address"
       },
-      { "internalType": "string", "name": "_id", "type": "string" },
       { "internalType": "string", "name": "_date", "type": "string" },
       { "internalType": "string[]", "name": "_processes", "type": "string[]" },
       {
         "components": [
-          { "internalType": "string", "name": "photo", "type": "string" },
           { "internalType": "string", "name": "name", "type": "string" },
-          { "internalType": "string", "name": "birthday", "type": "string" }
+          { "internalType": "string", "name": "photo", "type": "string" },
+          { "internalType": "string", "name": "id", "type": "string" },
+          { "internalType": "string", "name": "detail", "type": "string" }
         ],
         "internalType": "struct BUCertification.Catalog",
         "name": "_catalog",
@@ -151,7 +151,6 @@
             "name": "wallet_address",
             "type": "address"
           },
-          { "internalType": "string", "name": "id", "type": "string" },
           { "internalType": "string", "name": "date", "type": "string" },
           {
             "internalType": "string[]",
@@ -160,9 +159,10 @@
           },
           {
             "components": [
-              { "internalType": "string", "name": "photo", "type": "string" },
               { "internalType": "string", "name": "name", "type": "string" },
-              { "internalType": "string", "name": "birthday", "type": "string" }
+              { "internalType": "string", "name": "photo", "type": "string" },
+              { "internalType": "string", "name": "id", "type": "string" },
+              { "internalType": "string", "name": "detail", "type": "string" }
             ],
             "internalType": "struct BUCertification.Catalog",
             "name": "catalog",
@@ -194,7 +194,6 @@
             "name": "wallet_address",
             "type": "address"
           },
-          { "internalType": "string", "name": "id", "type": "string" },
           { "internalType": "string", "name": "date", "type": "string" },
           {
             "internalType": "string[]",
@@ -203,9 +202,10 @@
           },
           {
             "components": [
-              { "internalType": "string", "name": "photo", "type": "string" },
               { "internalType": "string", "name": "name", "type": "string" },
-              { "internalType": "string", "name": "birthday", "type": "string" }
+              { "internalType": "string", "name": "photo", "type": "string" },
+              { "internalType": "string", "name": "id", "type": "string" },
+              { "internalType": "string", "name": "detail", "type": "string" }
             ],
             "internalType": "struct BUCertification.Catalog",
             "name": "catalog",

@@ -12,10 +12,10 @@ const Layout = (props:any) => {
   const buildProcesses = () => {
     let processes:processProp[] = [];
     certProcesses.map((term, index) => {
-      let process:processProp = { name: '', subjects: [] };
+      let process:processProp = { name: '', subjects: [], detail: 'Finished successful' };
       process['name'] = term;
       certSubjects[term].map((subject:string) => {
-        let subjectRecord = { title: subject, mark: 0, unit: 1 };
+        let subjectRecord = { title: subject, mark: 5, unit: 1 };
         process['subjects'].push(subjectRecord);
       });
       processes.push(process);

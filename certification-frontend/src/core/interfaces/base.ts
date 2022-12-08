@@ -16,6 +16,7 @@ export interface subjectProp {
 export interface processProp {
     name: string;
     subjects: subjectProp[];
+    detail?: string;
 }
 
 export interface studentInfoProp {
