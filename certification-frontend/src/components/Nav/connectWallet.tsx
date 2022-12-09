@@ -23,25 +23,7 @@ export const ConnectWalletButton = () => {
   const baseStyles = {
     greenBtn: 'border p-10'
   }
-
-  useEffect(() => {
-    console.log('[address:]', address);
-    if (address === '') {
-      dispatch(initProcesses([]));
-      return;
-    }
-    const getCertification = async () => {
-      let certContract = getContract();
-      try {
-        const certification = await certContract.connect().methods.getCertification().call();
-        console.log(certification);
-      }
-      catch(e:any){
-        console.log(e.message);
-      } 
-    };
-    getCertification();
-  }, [address]);
+  
 //   useEffect(() => {
 //     const listener = (event: MouseEvent) => {
 //       if (

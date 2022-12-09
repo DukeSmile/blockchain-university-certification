@@ -55,10 +55,6 @@ export const CertificationPage = () => {
         certProcessesInfo.forEach((cProcess:processProp) => {
           processInfo.push(JSON.stringify(cProcess));
         });
-        console.log(values.student_wallet,
-            getDateFormat(),
-            processInfo,
-            _catalog);
         await certContract.methods.generateCertification(values.student_wallet.toLowerCase(),
           getDateFormat(),
           processInfo,

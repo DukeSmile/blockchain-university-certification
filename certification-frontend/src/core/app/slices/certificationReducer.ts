@@ -3,10 +3,12 @@ import { processProp } from '../../interfaces/base';
 
 type initialStateProp = {
   processes: processProp[];
+  student_info: {[key:string]: string};
 }
 
 const initialState:initialStateProp = {
-  processes: []
+  processes: [],
+  student_info: {}
 };
 
 export const certificationSlice = createSlice({
@@ -16,6 +18,9 @@ export const certificationSlice = createSlice({
   reducers: {
     initProcesses: (state, { payload }) => {
       state.processes = payload;
+    },
+    initStudentInfo: (state, { payload }) => {
+      state.student_info = payload;
     },
     updateSubjectMark: (state, { payload }) => {
       state.processes[payload.pIndex]['subjects'][payload.sIndex]['mark'] = payload.value;
@@ -28,6 +33,7 @@ export const certificationSlice = createSlice({
 
 export const { 
   initProcesses,
+  initStudentInfo,
   updateSubjectMark,
   updateSubjectUnit
 } = certificationSlice.actions;

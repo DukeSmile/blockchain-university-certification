@@ -1,0 +1,2 @@
+export const ETH_RPC_URL = "https://eth-goerli.g.alchemy.com/v2/P-qaapBKTbfGoVPGi_sFVYLqknVZT84O";
+export const WEB3_SIGN_MESSAGE = "Welcome to DDA project!\n\nTo get started, click Sign In and accept  Service\n\nThis request will not trigger a blockchain transaction or cost any gas fees.";

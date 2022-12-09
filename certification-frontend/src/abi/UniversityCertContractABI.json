@@ -109,8 +109,29 @@
   },
   {
     "inputs": [],
+    "name": "INSTITUTE_ROLE",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "OWNER_ADDRESS",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "OWNER_ROLE",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "STUDENT_ROLE",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
     "stateMutability": "view",
     "type": "function"
   },
@@ -138,43 +159,6 @@
     "name": "generateCertification",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getCertification",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "address",
-            "name": "wallet_address",
-            "type": "address"
-          },
-          { "internalType": "string", "name": "date", "type": "string" },
-          {
-            "internalType": "string[]",
-            "name": "processes",
-            "type": "string[]"
-          },
-          {
-            "components": [
-              { "internalType": "string", "name": "name", "type": "string" },
-              { "internalType": "string", "name": "photo", "type": "string" },
-              { "internalType": "string", "name": "id", "type": "string" },
-              { "internalType": "string", "name": "detail", "type": "string" }
-            ],
-            "internalType": "struct BUCertification.Catalog",
-            "name": "catalog",
-            "type": "tuple"
-          }
-        ],
-        "internalType": "struct BUCertification.Documents",
-        "name": "",
-        "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   },
   {
