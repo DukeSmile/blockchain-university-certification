@@ -8,10 +8,9 @@ async function bootstrap() {
   app.setGlobalPrefix("api");
 
   const options = new DocumentBuilder()
-    .setTitle("DDA charity auth orm example")
-    .setDescription("DDA charity api description")
-    .setVersion("1.1")
-    .addBearerAuth()
+    .setTitle("University Blockchain Certification ORM Example")
+    .setDescription("University Blockchain Certification description")
+    .setVersion("1.0")
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup("doc", app, document);

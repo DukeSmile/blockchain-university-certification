@@ -2,14 +2,13 @@ import { Module } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { configService } from './config/config.service';
-import { UsersModule } from './users/user.module';
-import {}
+import { TermsModule } from './terms/terms.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
-    UsersModule
+    TermsModule
   ],
-  controllers: [AppController],
+  controllers: [],
   providers: [ JwtService],
 })
 export class AppModule { }
