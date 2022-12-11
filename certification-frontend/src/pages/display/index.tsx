@@ -20,7 +20,7 @@ export const WatchCertificationPage = () => {
   };
 
   const getCertification = async () => {
-    dispatch(initProcesses([]));
+    // dispatch(initProcesses([]));
     dispatch(initStudentInfo({}));
     if (address === '') {
       return;
@@ -34,7 +34,6 @@ export const WatchCertificationPage = () => {
         const processJson = JSON.parse(process);
         processInfo.push(processJson);
       });
-      dispatch(initProcesses(processInfo));
 
       const studentInfo = {
         wallet_address: certification['wallet_address'],
@@ -42,7 +41,8 @@ export const WatchCertificationPage = () => {
         photo: certification['catalog']['photo'],
         student_id: certification['catalog']['id'],
         detail: certification['catalog']['detail'],
-        date: certification['date']
+        date: certification['date'],
+        process: processInfo
       };
 
       dispatch(initStudentInfo(studentInfo));
@@ -89,7 +89,7 @@ export const WatchCertificationPage = () => {
           </Grid>
           <Grid container>
             {
-              certProcesses.map((process:processProp, index:number) => {
+              studentDetail['process']?.map((process:processProp, index:number) => {
                 return (
                   <Grid item xs={12} sm={6} key={index}>
                     <Table className="w-full border-2 text-center">

@@ -1,13 +1,14 @@
 import { Grid, TableCell, Table, TableHead, TableBody, TableRow, Button, TextField, TextareaAutosize } from "@material-ui/core";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
 import { useWeb3Context } from '../../core/hooks/web3Context';
-import { updateSubjectMark, updateSubjectUnit, initProcesses } from "../../core/app/slices/certificationReducer";
+import { updateSubjectMark, updateSubjectUnit, initProcesses, setCertProcesses, setCertSubjects } from "../../core/app/slices/certificationReducer";
 
-import { getContract, certProcesses, certSubjects } from "../../core/constants/base";
+import { getContract, certProcesses, certSubjects, baseServerUrl } from "../../core/constants/base";
 import { processProp, subjectProp, studentInfoProp } from "../../core/interfaces/base";
 import LoadingBar from "../../components/loadingbar";
 
@@ -89,24 +90,28 @@ export const CertificationPage = () => {
     validationSchema: formValidation
   });
 
-  const buildProcesses = () => {
-    let processes:processProp[] = [];
-    certProcesses.map((term:any) => {
-      let process:processProp = { name: '', subjects: [], detail: 'Finished successful' };
-      process['name'] = term;
-      certSubjects[term].map((subject:string) => {
-        let subjectRecord = { title: subject, mark: 5, unit: 1 };
-        process['subjects'].push(subjectRecord);
-      });
-      processes.push(process);
-    });
-    console.log(processes);
-    dispatch(initProcesses(processes));
-  };
-  
-  useEffect(() => {
-    buildProcesses();
-  }, []);
+  // const LoadTerms = async() => {
+  //   try{
+  //     const response = await axios.get(`${baseServerUrl}/terms/all`);
+  //     const processNames:string[] = [];
+  //     const subjectTitles:{[key:string]:string[]} = {};
+  //     if (response.data) {
+  //       response.data.forEach((record:any) => {
+  //         processNames.push(record['title']);
+  //         subjectTitles[record['title']] = JSON.parse(record['subjects']);
+  //       });
+  //     }
+  //     dispatch(setCertProcesses(processNames));
+  //     dispatch(setCertSubjects(subjectTitles));
+  //     buildProcesses(processNames, subjectTitles);
+  //   } catch (e:any) {
+  //     console.log(e.message);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   LoadTerms();
+  // }, []);
 
   const style = {
     label: 'text-18 my-15',

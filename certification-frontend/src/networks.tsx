@@ -51,7 +51,7 @@ export const networks: INetworks = {
     name: 'BSC Testnet',
     isEnabled: true,
     addresses: {
-      UniversityCertContract:'0x367D2A9B137A231837Aa6cab76E2d1071d63eC9F',
+      UniversityCertContract:'0xC15582Cb61237ab008E6020aC20629678D9cd51b',
     }
   }
 };

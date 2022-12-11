@@ -6,9 +6,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 
-import { initProcesses } from "../../core/app/slices/certificationReducer";
+import { initProcesses, setRole } from "../../core/app/slices/certificationReducer";
 import { useWeb3Context } from '../../core/hooks/web3Context';
-import { getContract } from '../../core/constants/base';
+import { getContract, INSTITUTE_ROLE } from '../../core/constants/base';
 // import { setCharityType, setLoginUser, setSignHash } from '../../core/store/slices/bridgeSlice';
 // import axios from 'axios';
 
@@ -24,22 +24,29 @@ export const ConnectWalletButton = () => {
     greenBtn: 'border p-10'
   }
   
-//   useEffect(() => {
-//     const listener = (event: MouseEvent) => {
-//       if (
-//         ref.current &&
-//         event.target &&
-//         ref.current.contains(event.target as Node)
-//       ) {
-//         return;
-//       }
-//       setShowMenu(false);
-//     };
-//     document.addEventListener("click", listener, { capture: true });
-//     return () => {
-//       document.removeEventListener("click", listener, { capture: true });
-//     };
-//   }, []);
+  useEffect(() => {
+    const getRole = async() => {
+      dispatch(setRole(0));
+      if (address === '') return;
+      let certContract = getContract();
+      try {
+        const ownerAddr = await certContract.methods.owner().call();
+        if (ownerAddr.toLowerCase() === address.toLowerCase()) {
+          dispatch(setRole(1));
+          return;
+        }
+        const instituteFlag = await certContract.methods.hasRole(INSTITUTE_ROLE, address).call();
+        if (instituteFlag) {
+          dispatch(setRole(1));
+          return;
+        }
+      }
+      catch(e:any){
+        console.log(e.message);
+      } 
+    }
+    getRole();
+  }, [address]);
 
   return (
     <div className="z-100 flex">

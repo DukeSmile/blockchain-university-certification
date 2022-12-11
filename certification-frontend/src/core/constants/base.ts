@@ -3,8 +3,9 @@ import Web3 from 'web3';
 
 import { contractABIs, networks, FromNetwork } from '../../networks';
 import { chains } from '../../providers';
-export const baseServerUrl = '';
 
+export const baseServerUrl = 'http://localhost:3100/api';
+// export const baseServerUrl = 'http://65.108.27.134/api';
 const connectWeb3 = new Web3(chains[FromNetwork].rpcUrls[0]);
 export {connectWeb3};
 
@@ -14,11 +15,7 @@ export const getContract = () => {
 };
 
 
-
-
-
-
-
+export const INSTITUTE_ROLE = '0xbe66d68c3e13b65b5888dc75d3dac51207f0ab6266b017310fe8d5d9fe724a32';
 
 export const certProcesses:string[] = ['term1', 'term2'];
 
