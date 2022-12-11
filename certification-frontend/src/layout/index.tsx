@@ -7,7 +7,7 @@ import LayoutHeader from "./header";
 import { FromNetwork } from "../networks"; 
 import { useWeb3Context } from '../core/hooks/web3Context';
 import { baseServerUrl } from "../core/constants/base";
-import { setCertProcesses, setCertSubjects, initProcesses } from "../core/app/slices/certificationReducer";
+import { setCertProcesses, setCertSubjects, initProcesses, setCertProcessIds } from "../core/app/slices/certificationReducer";
 
 const Layout = (props:any) => {
   const dispatch = useDispatch();
@@ -33,15 +33,18 @@ const Layout = (props:any) => {
     try{
       const response = await axios.get(`${baseServerUrl}/terms/all`);
       const processNames:string[] = [];
+      const processIds:{[key:string]:string} = {};
       const subjectTitles:{[key:string]:string[]} = {};
       if (response.data) {
         response.data.forEach((record:any) => {
           processNames.push(record['title']);
           subjectTitles[record['title']] = JSON.parse(record['subjects']);
+          processIds[record['title']] = record['id'];
         });
       }
       dispatch(setCertProcesses(processNames));
       dispatch(setCertSubjects(subjectTitles));
+      dispatch(setCertProcessIds(processIds));
       buildProcesses(processNames, subjectTitles);
     } catch (e:any) {
       console.log(e.message);

@@ -4,6 +4,7 @@ import { TermsService } from './terms.service';
 import PostgresErrorCode from "../database/postgresErrorCode.enum";
 import CreateProcessDto from './dto/createProcess.dto';
 import FindOneParams from '../utils/findOneParams';
+import UpdateProcessDto from './dto/updateProcess';
 @ApiTags("Terms")
 @Controller("terms")
 export class TermsController {
@@ -44,7 +45,7 @@ export class TermsController {
   @Patch("")
   @ApiOperation({ summary: "Update a term" })
   async updatePost(
-    @Body() updateData: CreateProcessDto
+    @Body() updateData: UpdateProcessDto
   ) {
     return this.TermsService.update(updateData);
   }

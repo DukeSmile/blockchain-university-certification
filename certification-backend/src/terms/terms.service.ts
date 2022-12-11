@@ -4,6 +4,7 @@ import { FindOneOptions, Repository } from "typeorm";
 import PostNotFoundException from "./exceptions/postNotFound.exception";
 import { Terms } from "./terms.entity";
 import CreateProcessDto from "./dto/createProcess.dto";
+import UpdateProcessDto from "./dto/updateProcess";
 
 @Injectable()
 export class TermsService {
@@ -16,7 +17,7 @@ export class TermsService {
     return this.termsRepository
         .createQueryBuilder()
         .select("*")
-        .orderBy("id")
+        .orderBy("title")
         .execute();
   }
 
@@ -28,17 +29,18 @@ export class TermsService {
     return newTerm;
   }
 
-  async update(profileDto: CreateProcessDto) {
-    const title = profileDto.title;
-    let term = await this.termsRepository.findOneBy({title: title});
+  async update(profileDto: UpdateProcessDto) {
+    const id = profileDto.id;
+    // let term = await this.termsRepository.findOneBy({id: id});
     try {
-      await this.termsRepository.update(term.id, profileDto);
+      await this.termsRepository.update(id, profileDto);
     } catch (error) { 
+      console.log(error);
       return {
         message: 'update failed.', access: false
       };
     }
-    term = await this.termsRepository.findOneBy({title: title});
+    let term = await this.termsRepository.findOneBy({id: id});
     return term;
   }
 

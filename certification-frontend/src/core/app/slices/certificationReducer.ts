@@ -3,6 +3,7 @@ import { processProp } from '../../interfaces/base';
 
 type initialStateProp = {
   certProcesses:string[];
+  certProcessIds:{[key:string]: string};
   certSubjects:{[key:string]: string[]};
   processes: processProp[];
   student_info: {[key:string]: string};
@@ -11,6 +12,7 @@ type initialStateProp = {
 
 const initialState:initialStateProp = {
   certProcesses: [],
+  certProcessIds: {},
   certSubjects: {},
   processes: [],
   student_info: {},
@@ -34,6 +36,9 @@ export const certificationSlice = createSlice({
     setCertProcesses: (state, { payload }) => {
       state.certProcesses = payload;
     },
+    setCertProcessIds: (state, { payload }) => {
+      state.certProcessIds = payload;
+    },
     setCertSubjects: (state, { payload }) => {
       state.certSubjects = payload;
     },
@@ -52,6 +57,8 @@ export const certificationSlice = createSlice({
         state.certProcesses[index] = payload.value;
         state.certSubjects[payload.value] = state.certSubjects[payload.former];
         state.certSubjects[payload.former] = [];
+        state.certProcessIds[payload.value] = state.certProcessIds[payload.former];
+        state.certProcessIds[payload.former] = '';
       }
     },
     addCertSubject: (state, { payload }) => {
@@ -81,6 +88,7 @@ export const {
   initProcesses,
   initStudentInfo,
   setCertProcesses,
+  setCertProcessIds,
   setCertSubjects,
   addCertProcess,
   updateCertProcess,

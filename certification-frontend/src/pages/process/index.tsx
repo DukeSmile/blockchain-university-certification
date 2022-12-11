@@ -16,6 +16,7 @@ export const ProcessManage = () => {
   const [subjectId, setSubjectId] = useState('');
 
   const certProcesses = useSelector((state:any) => state.app.certProcesses);
+  const certProcessIds = useSelector((state:any) => state.app.certProcessIds);
   const certSubjects = useSelector((state:any) => state.app.certSubjects);
   const termAction = async() => {
     if (processName === '') {
@@ -64,12 +65,13 @@ export const ProcessManage = () => {
   const saveProcessToBackend = async(process: string) => {
     try {
       const ajax_body = {
+        id: certProcessIds[process],
         title: process,
         subjects: JSON.stringify(certSubjects[process])
       };
       const response = await axios.patch(`${baseServerUrl}/terms`, ajax_body);
-      console.log('term is udpated');
-      alert('This process is saved!')
+      // console.log('term is udpated');
+      alert('This process is saved!');
     }
     catch (e:any) {
       console.log(e.message);

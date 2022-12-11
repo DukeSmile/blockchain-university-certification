@@ -1,6 +1,9 @@
 import { ApiProperty } from "@nestjs/swagger";
 
-export default class ChangeNameDto {
+export default class UpdateProcessDto {
+    @ApiProperty()
+    public id: string;
+
     @ApiProperty()
     public title: string;
 
