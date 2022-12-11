@@ -3,7 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { FindOneOptions, Repository } from "typeorm";
 import PostNotFoundException from "./exceptions/postNotFound.exception";
 import { Terms } from "./terms.entity";
-import CreateUserDto from "./dto/createUser.dto";
+import CreateProcessDto from "./dto/createProcess.dto";
 
 @Injectable()
 export class TermsService {
@@ -16,10 +16,11 @@ export class TermsService {
     return this.termsRepository
         .createQueryBuilder()
         .select("*")
+        .orderBy("id")
         .execute();
   }
 
-  async create(termData: CreateUserDto) {
+  async create(termData: CreateProcessDto) {
     const newTerm = await this.termsRepository.create(termData);
     // console.log(newUser);
     await this.termsRepository.save(newTerm);
@@ -27,7 +28,7 @@ export class TermsService {
     return newTerm;
   }
 
-  async update(profileDto: CreateUserDto) {
+  async update(profileDto: CreateProcessDto) {
     const title = profileDto.title;
     let term = await this.termsRepository.findOneBy({title: title});
     try {

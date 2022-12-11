@@ -17,7 +17,7 @@ export const ProcessManage = () => {
 
   const certProcesses = useSelector((state:any) => state.app.certProcesses);
   const certSubjects = useSelector((state:any) => state.app.certSubjects);
-  const termAction = () => {
+  const termAction = async() => {
     if (processName === '') {
       alert("Input process name!");
       return;
@@ -30,7 +30,19 @@ export const ProcessManage = () => {
       setProcessText('');
     }
     else {
-      dispatch(addCertProcess(processName));
+      try {
+        const ajax_body = {
+          title: processName,
+          subjects: JSON.stringify([])
+        };
+        const response = await axios.post(`${baseServerUrl}/terms/create`, ajax_body);
+        console.log('New process is created');
+        dispatch(addCertProcess(processName));
+        alert('New process is created!')
+      }
+      catch (e:any) {
+        console.log(e.message);
+      }
     }
   }
 
@@ -56,7 +68,8 @@ export const ProcessManage = () => {
         subjects: JSON.stringify(certSubjects[process])
       };
       const response = await axios.patch(`${baseServerUrl}/terms`, ajax_body);
-      console.log(response);
+      console.log('term is udpated');
+      alert('This process is saved!')
     }
     catch (e:any) {
       console.log(e.message);
@@ -124,7 +137,7 @@ export const ProcessManage = () => {
                       <FontAwesomeIcon icon={faSave}/>
                     </button>
                   </div>
-                  <div className="flex">
+                  <div className="flex flex-wrap">
                     {
                       certSubjects[process]?.map((subject:string, index:number) => {
                         return (
