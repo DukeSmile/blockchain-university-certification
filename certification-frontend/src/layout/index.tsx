@@ -24,6 +24,7 @@ const Layout = (props:any) => {
         let subjectRecord = { title: subject, mark: 5, unit: 1 };
         process['subjects'].push(subjectRecord);
       });
+      process['detail'] = '1th sitting successful';
       processes.push(process);
     });
     dispatch(initProcesses(processes));

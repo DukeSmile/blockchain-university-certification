@@ -1,27 +1,38 @@
 import { Grid, TableCell, Table, TableHead, TableBody, TableRow, Button, TextField, TextareaAutosize } from "@material-ui/core";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { makeStyles } from '@material-ui/core/styles';
 
 import { useWeb3Context } from '../../core/hooks/web3Context';
-import { updateSubjectMark, updateSubjectUnit, initProcesses, setCertProcesses, setCertSubjects } from "../../core/app/slices/certificationReducer";
+import { updateProcessDetail, updateSubjectMark, updateSubjectUnit } from "../../core/app/slices/certificationReducer";
 
-import { getContract, certProcesses, certSubjects, baseServerUrl } from "../../core/constants/base";
-import { processProp, subjectProp, studentInfoProp } from "../../core/interfaces/base";
+import { getContract } from "../../core/constants/base";
+import { processProp, subjectProp } from "../../core/interfaces/base";
 import LoadingBar from "../../components/loadingbar";
+
+const useStyles = makeStyles({
+  customTable: {
+    "& .MuiTableCell-sizeSmall": {
+      padding: "5px 10px" // <-- arbitrary value
+    }
+  },
+});
 
 export const CertificationPage = () => {
   const { connect, disconnect, address, provider } = useWeb3Context();
   const dispatch = useDispatch();
   const certProcessesInfo = useSelector((state:any) => state.app.processes);
   const [loading, setLoading] = useState(false);
+  const classes = useStyles();
+
   const updateMark = (processIndex:number, subjectIndex: number, value:string) => {
     const updateData = {
       pIndex: processIndex,
       sIndex: subjectIndex,
-      value: parseInt(value)
+      value: value
     }
     dispatch(updateSubjectMark(updateData));
   };
@@ -33,7 +44,13 @@ export const CertificationPage = () => {
     }
     dispatch(updateSubjectUnit(updateData));
   };
-
+  const updateDetail = (processIndex:number, value:string) => {
+    const updateData = {
+      pIndex: processIndex,
+      value: value
+    }
+    dispatch(updateProcessDetail(updateData));
+  };
   const getDateFormat = () => {
     const cDate = new Date();
     return cDate.getFullYear() + '-' + cDate.getUTCMonth() + '-' + cDate.getUTCDate() + ' ' + cDate.getUTCHours() + ':' + cDate.getUTCMinutes() + ':' + cDate.getUTCSeconds();
@@ -118,6 +135,7 @@ export const CertificationPage = () => {
     tab: 'rounded-full py-6 px-20 text-20 text-brown',
     activeTab: 'rounded-full py-6 px-20 text-20 bg-asphalt text-white font-bold'
   }
+  
   return (
     <div>
       <LoadingBar open={loading} />
@@ -192,17 +210,17 @@ export const CertificationPage = () => {
           </Grid>
         </Grid>
       </form>
-      <Grid container>
+      <Grid container spacing={1}>
         {
           certProcessesInfo.map((process:processProp, index:number) => {
             return (
-              <Grid item xs={12} sm={6} key={index}>
-                <Table className="w-full border-2 text-center">
-                  <TableHead>
+              <Grid item xs={12} sm={6} key={index} className=" border-2">
+                <Table className="w-full text-center" classes={{root: classes.customTable}} size="small">
+                  <TableHead className="border-b-2">
                     <TableRow>
-                      <TableCell className="w-full border-2 font-bold capitalize" align="center">{process.name}</TableCell>
-                      <TableCell className="border-2 font-bold" align="center">Mark</TableCell>
-                      <TableCell className="border-2 font-bold" align="center">Unit</TableCell>
+                      <TableCell className="w-full font-bold capitalize" align="center">{process.name}</TableCell>
+                      <TableCell className="font-bold" align="center">Mark</TableCell>
+                      <TableCell className="font-bold" align="center">Unit</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -212,21 +230,25 @@ export const CertificationPage = () => {
                           <TableRow key={pindex}>
                             <TableCell align="center" className="capitalize">{subject.title}</TableCell>
                             <TableCell align="center">
-                              <input type="number" className="w-50 p-5" min={0} value={subject.mark}
+                              <input type="text" className="w-50 p-5 text-center" min={0} value={subject.mark}
                                 onChange={(e) => updateMark(index, pindex, e.target.value)}
                               />
                             </TableCell>
                             <TableCell align="center">
-                              <input type="number" className="w-50 p-5" min={0} value={subject.unit}
+                              <input type="number" className="w-50 p-5 text-center" min={0} value={subject.unit}
                                 onChange={(e) => updateUnit(index, pindex, e.target.value)}
                               />
-                              </TableCell>
+                            </TableCell>
                           </TableRow>
                         )
                       })
                     }
                     <TableRow className="border-2 border-t-0">
-                      <td colSpan={3}>Finished Successful</td>
+                      <TableCell align="center" colSpan={3}>
+                        <textarea className="w-full p-5 text-center" rows={3} value={process.detail}
+                          onChange={(e) => updateDetail(index, e.target.value)}
+                        />
+                      </TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>

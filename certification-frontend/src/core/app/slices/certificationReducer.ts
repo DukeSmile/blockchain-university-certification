@@ -80,6 +80,9 @@ export const certificationSlice = createSlice({
     },
     updateSubjectUnit: (state, { payload }) => {
       state.processes[payload.pIndex]['subjects'][payload.sIndex]['unit'] = payload.value;
+    },
+    updateProcessDetail: (state, { payload }) => {
+      state.processes[payload.pIndex]['detail'] = payload.value;
     }
   }
 });
@@ -96,6 +99,7 @@ export const {
   deleteCertSubject,
   setRole,
   updateSubjectMark,
-  updateSubjectUnit
+  updateSubjectUnit,
+  updateProcessDetail
 } = certificationSlice.actions;
 export default certificationSlice.reducer;
