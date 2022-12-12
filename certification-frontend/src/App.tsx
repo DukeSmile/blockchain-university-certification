@@ -1,10 +1,11 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import './App.css';
 import Layout from './layout';
 import { routeItems } from './core/constants/menu';
 import { RouteItemProp } from './core/interfaces/base';
+import { WatchCertificationPage } from './pages/display';
 
 const App = () => {
 
@@ -20,6 +21,7 @@ const App = () => {
               )
             })
           }
+          <Route path="/*" element={<Navigate to="/" replace />} />
         </Routes>
       </Layout>
     </BrowserRouter>

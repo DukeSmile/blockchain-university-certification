@@ -131,7 +131,7 @@ export const CertificationPage = () => {
   // }, []);
 
   const style = {
-    label: 'text-18 my-15',
+    label: 'text-20 my-15 font-bold',
     tab: 'rounded-full py-6 px-20 text-20 text-brown',
     activeTab: 'rounded-full py-6 px-20 text-20 bg-asphalt text-white font-bold'
   }
@@ -214,44 +214,46 @@ export const CertificationPage = () => {
         {
           certProcessesInfo.map((process:processProp, index:number) => {
             return (
-              <Grid item xs={12} sm={6} key={index} className=" border-2">
-                <Table className="w-full text-center" classes={{root: classes.customTable}} size="small">
-                  <TableHead className="border-b-2">
-                    <TableRow>
-                      <TableCell className="w-full font-bold capitalize" align="center">{process.name}</TableCell>
-                      <TableCell className="font-bold" align="center">Mark</TableCell>
-                      <TableCell className="font-bold" align="center">Unit</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {
-                      process.subjects.map((subject:subjectProp, pindex) => {
-                        return (
-                          <TableRow key={pindex}>
-                            <TableCell align="center" className="capitalize">{subject.title}</TableCell>
-                            <TableCell align="center">
-                              <input type="text" className="w-50 p-5 text-center" min={0} value={subject.mark}
-                                onChange={(e) => updateMark(index, pindex, e.target.value)}
-                              />
-                            </TableCell>
-                            <TableCell align="center">
-                              <input type="number" className="w-50 p-5 text-center" min={0} value={subject.unit}
-                                onChange={(e) => updateUnit(index, pindex, e.target.value)}
-                              />
-                            </TableCell>
-                          </TableRow>
-                        )
-                      })
-                    }
-                    <TableRow className="border-2 border-t-0">
-                      <TableCell align="center" colSpan={3}>
-                        <textarea className="w-full p-5 text-center" rows={3} value={process.detail}
-                          onChange={(e) => updateDetail(index, e.target.value)}
-                        />
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
+              <Grid item xs={12} sm={6} key={index}>
+                <div className="w-full h-full border-2">
+                  <Table className="w-full text-center" classes={{root: classes.customTable}} size="small">
+                    <TableHead className="border-b-2">
+                      <TableRow>
+                        <TableCell className="w-full font-bold capitalize text-20" align="center">{process.name}</TableCell>
+                        <TableCell className="font-bold text-20" align="center">Mark</TableCell>
+                        <TableCell className="font-bold text-20" align="center">Unit</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {
+                        process.subjects.map((subject:subjectProp, pindex) => {
+                          return (
+                            <TableRow key={pindex}>
+                              <TableCell align="center" className="capitalize">{subject.title}</TableCell>
+                              <TableCell align="center">
+                                <input type="text" className="w-50 p-5 text-center" min={0} value={subject.mark}
+                                  onChange={(e) => updateMark(index, pindex, e.target.value)}
+                                />
+                              </TableCell>
+                              <TableCell align="center">
+                                <input type="number" className="w-50 p-5 text-center" min={0} value={subject.unit}
+                                  onChange={(e) => updateUnit(index, pindex, e.target.value)}
+                                />
+                              </TableCell>
+                            </TableRow>
+                          )
+                        })
+                      }
+                      <TableRow className="border-t-2">
+                        <TableCell align="center" colSpan={3} className="border-b-0">
+                          <textarea className="w-full p-5 text-center outline-none" rows={3} value={process.detail}
+                            onChange={(e) => updateDetail(index, e.target.value)}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </div>
               </Grid>
             )
           })
