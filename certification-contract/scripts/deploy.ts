@@ -10,18 +10,17 @@ async function main() {
 
   const networkName = hre.network.name
 
-  console.log("Deploying DDAContract");
+  console.log("Deploying universityCert");
   console.log("Deployer address: ", deployer.address);
   console.log('name: ', networkName);
-  const DDAcontract = await ethers.getContractFactory("DDAContract");
-  const ddAContract = await DDAcontract.deploy(deployer.address, process.env.SWAP_ROUTER_ADDRESS, process.env.USDT_ADDRESS, process.env.OKAPI_ADDRESS, process.env.ETH_USD_PRICE_ADDRESS);
-  await ddAContract.deployed();
-  console.log("DDAContract address: ", ddAContract.address);
-  await run("verify:verify", {
-    address: ddAContract.address,
-    constructorArguments: [deployer.address, process.env.SWAP_ROUTER_ADDRESS, process.env.USDT_ADDRESS, process.env.OKAPI_ADDRESS, process.env.ETH_USD_PRICE_ADDRESS],
-  });
-  
+  const UBCcontract = await ethers.getContractFactory("BUCertification");
+  const universityCert = await UBCcontract.deploy(deployer.address);
+  await universityCert.deployed();
+  console.log("BUCcontract address: ", universityCert.address);
+  console.log(
+    "universityCert verify: ",
+    `npx hardhat verify --contract "contracts/BUCertification.sol:BUCertification" --network bscTestnet ${universityCert.address} ${deployer.address}`
+    );
 }
 
 // We recommend this pattern to be able to use async/await everywhere

@@ -8,6 +8,7 @@ export const NavBar = () => {
     <div className="w-[80%] mx-auto text-16 font-bold border-b-1 h-50 flex justify-between items-center">
       <div>
         <Link to="/" className={menuStyle}>My certification</Link>
+        <Link to="/check" className={menuStyle}>Look certification</Link>
         {
           userRole === 1 && (
             <Link to="/create" className={menuStyle}>Registry</Link>

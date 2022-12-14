@@ -19,7 +19,8 @@ contract BUCertification is AccessControl, Ownable {
     bytes32 public constant STUDENT_ROLE = keccak256("STUDENT_ROLE_UNIVERSITY");
 
     mapping(address=>Documents) private certifications;
-    
+    mapping(address=> mapping(address=> bool)) private accessInformation;
+
     event GenerateCertification(
         address indexed wallet_address,
         uint256 timestamp
@@ -38,17 +39,36 @@ contract BUCertification is AccessControl, Ownable {
             processes: _processes,
             catalog: _catalog
         });
+
+        accessInformation[student_address][msg.sender] = true;
+        accessInformation[student_address][student_address] = true;
+
         _setupRole(STUDENT_ROLE, student_address);
         emit GenerateCertification(student_address, block.timestamp);
     }
 
     function getCertification(address student_address) external view returns (Documents memory) {
         require (hasRole(STUDENT_ROLE, student_address), "There is no certification matched with this wallet");
+        require (accessInformation[student_address][msg.sender], "You cannot access this student certification");
         return certifications[student_address];
     }
 
+    function giveAccess(address _address) external {
+        require (hasRole(STUDENT_ROLE, msg.sender), 'You dont have certification!');
+        accessInformation[msg.sender][_address] = true;
+    }
     
-    
+    function removeAccess(address _address) external {
+        require (hasRole(STUDENT_ROLE, msg.sender), 'You dont have certification!');
+        require (!hasRole(INSTITUTE_ROLE, _address), 'You cannot remove access from Institute role!');
+        require (_address != msg.sender, 'You cannot remove access from yourself!');
+        require (accessInformation[msg.sender][_address], 'Target address has not access to certification!');
+        accessInformation[msg.sender][_address] = false;
+    }
+
+    function getAccessStatus(address _student, address _company) external view returns (bool) {
+        return accessInformation[_student][_company];
+    }
     function renounceRole(bytes32 role, address account) public override{
         revert("disabled");
     }

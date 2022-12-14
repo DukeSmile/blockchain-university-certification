@@ -24,34 +24,11 @@ interface INetworks {
 }
 
 export const networks: INetworks = {
-  [NetworkIds.Goerli]: {
-    name: 'Ethereum Goerli',
-    isEnabled: true,
-    addresses: {
-      UniversityCertContract: ''
-    }
-  },
-  [NetworkIds.Ethereum]: {
-    name: 'Ethereum',
-    isEnabled: true,
-    addresses: {
-      UniversityCertContract: '',
-      OKAPI: ''
-    }
-  },
-  [NetworkIds.Bsc]: {
-    name: 'BSC',
-    isEnabled: true,
-    addresses: {
-      UniversityCertContract: '',
-      OKAPI: ''
-    }
-  },
   [NetworkIds.BscTestnet]: {
     name: 'BSC Testnet',
     isEnabled: true,
     addresses: {
-      UniversityCertContract:'0xC15582Cb61237ab008E6020aC20629678D9cd51b',
+      UniversityCertContract:'0xB7C263Af55eDC652a3816fb43ff48D0e87D6989F',
     }
   }
 };
