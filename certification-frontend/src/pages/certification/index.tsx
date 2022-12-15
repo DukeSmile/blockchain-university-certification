@@ -77,7 +77,7 @@ export const CertificationPage = () => {
           getDateFormat(),
           processInfo,
           _catalog)
-        .send({from: address});
+        .send({from: address.toLowerCase()});
         setLoading(false);
         alert("created");
       }

@@ -27,7 +27,7 @@ export const WatchCertificationPage = () => {
     }
     let certContract = getContract();
     try {
-      const certification = await certContract.methods.getCertification(address).call();
+      const certification = await certContract.methods.getCertification(address, address).call();
       const processInfo:processProp[] = [];
       certification['processes'].forEach((process:string) => {
         const processJson = JSON.parse(process);

@@ -47,9 +47,9 @@ contract BUCertification is AccessControl, Ownable {
         emit GenerateCertification(student_address, block.timestamp);
     }
 
-    function getCertification(address student_address) external view returns (Documents memory) {
+    function getCertification(address student_address, address _from) external view returns (Documents memory) {
         require (hasRole(STUDENT_ROLE, student_address), "There is no certification matched with this wallet");
-        require (accessInformation[student_address][msg.sender], "You cannot access this student certification");
+        require (accessInformation[student_address][_from], "You cannot access this student certification");
         return certifications[student_address];
     }
 

@@ -168,11 +168,22 @@
   },
   {
     "inputs": [
+      { "internalType": "address", "name": "_student", "type": "address" },
+      { "internalType": "address", "name": "_company", "type": "address" }
+    ],
+    "name": "getAccessStatus",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
       {
         "internalType": "address",
         "name": "student_address",
         "type": "address"
-      }
+      },
+      { "internalType": "address", "name": "_from", "type": "address" }
     ],
     "name": "getCertification",
     "outputs": [
@@ -220,6 +231,15 @@
   },
   {
     "inputs": [
+      { "internalType": "address", "name": "_address", "type": "address" }
+    ],
+    "name": "giveAccess",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
       { "internalType": "bytes32", "name": "role", "type": "bytes32" },
       { "internalType": "address", "name": "account", "type": "address" }
     ],
@@ -243,6 +263,15 @@
     "name": "owner",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_address", "type": "address" }
+    ],
+    "name": "removeAccess",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
