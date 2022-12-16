@@ -8,16 +8,11 @@ const { expect } = require("chai");
 describe("University Certification", () => {
   let Token;
   let universityCert: Contract,
-    deployer: SignerWithAddress,
-    donater1: SignerWithAddress,
-    donater2: SignerWithAddress,
-    fundRaiser1: SignerWithAddress,
-    fundRaiser2: SignerWithAddress,
-    charity1: SignerWithAddress;
+    deployer: SignerWithAddress;
 
   describe("Deploying BUCertification", () => {
     it("Set accounts", async () => {
-      [deployer, donater1, donater2, fundRaiser1, fundRaiser2, charity1] = await ethers.getSigners();
+      [deployer] = await ethers.getSigners();
       console.log("deployer: ", deployer.address);
     });
     it("Deployed university certification contract", async () => {

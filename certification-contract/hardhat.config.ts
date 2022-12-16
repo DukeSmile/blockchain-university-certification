@@ -60,12 +60,7 @@ const config: HardhatUserConfig = {
     bscTestnet: {
       url: process.env.BSC_TESTNET_URL || "",
       accounts: [
-        process.env.PRIVATE_KEY || "",
-        process.env.DONATER1_PRIVATE_KEY || "",
-        process.env.DONATER2_PRIVATE_KEY || "", 
-        process.env.FUNDRAISER1_PRIVATE_KEY || "", 
-        process.env.FUNDRAISER2_PRIVATE_KEY || "", 
-        process.env.CHARITY1_PRIVATE_KEY || ""
+        process.env.PRIVATE_KEY || ""
       ],
     },
     // mainnet: {
