@@ -4,8 +4,8 @@ import Web3 from 'web3';
 import { contractABIs, networks, FromNetwork } from '../../networks';
 import { chains } from '../../providers';
 
-// export const baseServerUrl = 'http://localhost:3100/api';
-export const baseServerUrl = 'http://95.217.49.117/api';
+export const baseServerUrl = 'http://localhost:3200/api';
+// export const baseServerUrl = 'http://95.217.49.117/api';
 const connectWeb3 = new Web3(chains[FromNetwork].rpcUrls[0]);
 export {connectWeb3};
 

@@ -4,8 +4,9 @@ import { Grid, TextField } from "@material-ui/core"
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { addCertProcess, updateCertProcess, addCertSubject, setCertProcesses, deleteCertSubject } from "../../core/app/slices/certificationReducer";
+import { initProcesses, addCertProcess, updateCertProcess, addCertSubject, setCertProcesses, deleteCertSubject, setCertSubjects, setCertProcessIds } from "../../core/app/slices/certificationReducer";
 import { baseServerUrl } from "../../core/constants/base";
+import { processProp } from "../../core/interfaces/base";
 
 export const ProcessManage = () => {
   const dispatch = useDispatch();
@@ -39,7 +40,8 @@ export const ProcessManage = () => {
         const response = await axios.post(`${baseServerUrl}/terms/create`, ajax_body);
         console.log('New process is created');
         dispatch(addCertProcess(processName));
-        alert('New process is created!')
+        alert('New process is created!');
+        LoadTerms();
       }
       catch (e:any) {
         console.log(e.message);
@@ -72,12 +74,48 @@ export const ProcessManage = () => {
       const response = await axios.patch(`${baseServerUrl}/terms`, ajax_body);
       // console.log('term is udpated');
       alert('This process is saved!');
+      LoadTerms();
     }
     catch (e:any) {
       console.log(e.message);
     }
   }
 
+  const buildProcesses = (cProcesses:any, cSubjects:any) => {
+    let processes:processProp[] = [];
+    cProcesses.map((term:any) => {
+      let process:processProp = { name: '', subjects: [], detail: 'Finished successful' };
+      process['name'] = term;
+      cSubjects[term].map((subject:string) => {
+        let subjectRecord = { title: subject, mark: 5, unit: 1 };
+        process['subjects'].push(subjectRecord);
+      });
+      process['detail'] = '1th sitting successful';
+      processes.push(process);
+    });
+    dispatch(initProcesses(processes));
+  };
+  const LoadTerms = async() => {
+    try{
+      const response = await axios.get(`${baseServerUrl}/terms/all`);
+      const processNames:string[] = [];
+      const processIds:{[key:string]:string} = {};
+      const subjectTitles:{[key:string]:string[]} = {};
+      if (response.data) {
+        response.data.forEach((record:any) => {
+          processNames.push(record['title']);
+          subjectTitles[record['title']] = JSON.parse(record['subjects']);
+          processIds[record['title']] = record['id'];
+        });
+      }
+      dispatch(setCertProcesses(processNames));
+      dispatch(setCertSubjects(subjectTitles));
+      dispatch(setCertProcessIds(processIds));
+      buildProcesses(processNames, subjectTitles);
+    } catch (e:any) {
+      console.log(e.message);
+    }
+  };
   return (
     <div>
       <Grid container className="text-16" spacing={2}>
