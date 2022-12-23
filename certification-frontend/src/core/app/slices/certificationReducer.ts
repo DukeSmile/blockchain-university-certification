@@ -8,6 +8,8 @@ type initialStateProp = {
   processes: processProp[];
   student_info: {[key:string]: string};
   role: number;
+  ipfs: any;
+  uploadFile: any;
 }
 
 const initialState:initialStateProp = {
@@ -16,7 +18,9 @@ const initialState:initialStateProp = {
   certSubjects: {},
   processes: [],
   student_info: {},
-  role: 0
+  role: 0,
+  ipfs: undefined,
+  uploadFile: undefined
 };
 
 export const certificationSlice = createSlice({
@@ -83,7 +87,13 @@ export const certificationSlice = createSlice({
     },
     updateProcessDetail: (state, { payload }) => {
       state.processes[payload.pIndex]['detail'] = payload.value;
-    }
+    },
+    setIPFS: (state, {payload}) => {
+      state.ipfs = payload;
+    },
+    setUploadFile: (state, {payload}) => {
+      state.uploadFile = payload;
+    },
   }
 });
 
@@ -100,6 +110,8 @@ export const {
   setRole,
   updateSubjectMark,
   updateSubjectUnit,
-  updateProcessDetail
+  updateProcessDetail,
+  setIPFS,
+  setUploadFile
 } = certificationSlice.actions;
 export default certificationSlice.reducer;

@@ -15,10 +15,10 @@ export class TermsService {
 
   async getAllUsers() {
     return this.termsRepository
-        .createQueryBuilder()
-        .select("*")
-        .orderBy("title")
-        .execute();
+      .createQueryBuilder()
+      .select("*")
+      .orderBy("title")
+      .execute();
   }
 
   async create(termData: CreateProcessDto) {

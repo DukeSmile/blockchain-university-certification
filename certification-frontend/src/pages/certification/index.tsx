@@ -7,7 +7,7 @@ import * as Yup from "yup";
 import { makeStyles } from '@material-ui/core/styles';
 
 import { useWeb3Context } from '../../core/hooks/web3Context';
-import { updateProcessDetail, updateSubjectMark, updateSubjectUnit } from "../../core/app/slices/certificationReducer";
+import { setUploadFile, updateProcessDetail, updateSubjectMark, updateSubjectUnit } from "../../core/app/slices/certificationReducer";
 
 import { getContract } from "../../core/constants/base";
 import { processProp, subjectProp } from "../../core/interfaces/base";
@@ -25,6 +25,8 @@ export const CertificationPage = () => {
   const { connect, disconnect, address, provider } = useWeb3Context();
   const dispatch = useDispatch();
   const certProcessesInfo = useSelector((state:any) => state.app.processes);
+  const ipfsInfo = useSelector((state:any) => state.app.ipfs);
+  const uploadFile = useSelector((state:any) => state.app.uploadFile);
   const [loading, setLoading] = useState(false);
   const classes = useStyles();
 
@@ -62,10 +64,21 @@ export const CertificationPage = () => {
     if (address !== '' && provider != null) {
       setLoading(true);
       try{
+        //upload image to IPFS
+        let uploadUrl = '';
+        if (ipfsInfo && uploadFile) {
+          const result = await (ipfsInfo).add(uploadFile);
+          uploadUrl = result.path;
+        }
+        if (uploadUrl === '') {
+          alert("There is no student image");
+          throw new Error("There is no student image");
+        }
+
         let certContract = getContract();
         const _catalog = {
           name: values.name,
-          photo: '',
+          photo: uploadUrl,
           id: values.student_id,
           detail: values.detail
         }
@@ -80,6 +93,7 @@ export const CertificationPage = () => {
         .send({from: address.toLowerCase()});
         setLoading(false);
         alert("created");
+        dispatch(setUploadFile(undefined));
       }
       catch(e:any){
         console.log(e.message);

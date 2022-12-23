@@ -17,9 +17,5 @@ export const getContract = () => {
 
 export const INSTITUTE_ROLE = '0xbe66d68c3e13b65b5888dc75d3dac51207f0ab6266b017310fe8d5d9fe724a32';
 
-export const certProcesses:string[] = ['term1', 'term2'];
-
-export const certSubjects:{[key:string]: string[]} = {
-    'term1' : ['subject1', 'subject2', 'subject3', 'subject4', 'subject5', 'subject6', 'subject7', 'subject8'],
-    'term2' : ['subject1', 'subject2', 'subject3', 'subject4', 'subject5', 'subject6', 'subject7', 'subject8']
-};
+export const projectId = '2JHXvB0V0UmerkQHYCFelKs3WIB';
+export const projectSecret = 'd3b9afeea23ea5ce6d97f3b549db27a0';
