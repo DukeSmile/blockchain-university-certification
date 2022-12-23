@@ -61,11 +61,13 @@ export const CertificationPage = () => {
   const createCertification = async(values:any) => {
     if (address === '')
       alert('Connect wallet');
+    
     if (address !== '' && provider != null) {
       setLoading(true);
       try{
         //upload image to IPFS
         let uploadUrl = '';
+        
         if (ipfsInfo && uploadFile) {
           const result = await (ipfsInfo).add(uploadFile);
           uploadUrl = result.path;
@@ -74,7 +76,6 @@ export const CertificationPage = () => {
           alert("There is no student image");
           throw new Error("There is no student image");
         }
-
         let certContract = getContract();
         const _catalog = {
           name: values.name,

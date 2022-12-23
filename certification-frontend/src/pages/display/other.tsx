@@ -20,7 +20,7 @@ export const WatchOtherCertificationPage = () => {
   const style = {
     label: 'text-18 font-bold mr-10'
   };
-
+  const now = new Date();
   const getCertification = async () => {
     // dispatch(initProcesses([]));
     dispatch(initStudentInfo({}));
@@ -30,7 +30,8 @@ export const WatchOtherCertificationPage = () => {
     }
     let certContract = getContract();
     try {
-      const certification = await certContract.methods.getCertification(studentAddr, address).call();
+      const now = new Date();
+      const certification = await certContract.methods.getCertification(studentAddr, address, Math.ceil(now.getTime() / 1000)).call();
       const processInfo:processProp[] = [];
       certification['processes'].forEach((process:string) => {
         const processJson = JSON.parse(process);
@@ -60,11 +61,11 @@ export const WatchOtherCertificationPage = () => {
       alert("Connect to your wallet first!");
       return;
     }
-    
+    const now = new Date();
     setLoading(true);
     let certContract = getContract();
     try {
-      await certContract.methods.giveAccess(studentAddr.toLowerCase()).send({from: address.toLowerCase()});
+      await certContract.methods.giveAccess(studentAddr.toLowerCase(),  Math.ceil(now.getTime() / 1000)).send({from: address.toLowerCase()});
     } catch(e:any) {
       alert(e.message);
     }

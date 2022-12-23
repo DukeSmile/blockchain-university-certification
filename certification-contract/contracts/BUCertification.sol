@@ -19,7 +19,7 @@ contract BUCertification is AccessControl, Ownable {
     bytes32 public constant STUDENT_ROLE = keccak256("STUDENT_ROLE_UNIVERSITY");
 
     mapping(address=>Documents) private certifications;
-    mapping(address=> mapping(address=> bool)) private accessInformation;
+    mapping(address=> mapping(address=> uint)) private accessInformation;
 
     event GenerateCertification(
         address indexed wallet_address,
@@ -40,35 +40,24 @@ contract BUCertification is AccessControl, Ownable {
             catalog: _catalog
         });
 
-        accessInformation[student_address][msg.sender] = true;
-        accessInformation[student_address][student_address] = true;
+        // accessInformation[student_address][msg.sender] = true;
+        // accessInformation[student_address][student_address] = true;
 
         _setupRole(STUDENT_ROLE, student_address);
         emit GenerateCertification(student_address, block.timestamp);
     }
 
-    function getCertification(address student_address, address _from) external view returns (Documents memory) {
+    function getCertification(address student_address, address _from, uint today) external view returns (Documents memory) {
         require (hasRole(STUDENT_ROLE, student_address), "There is no certification matched with this wallet");
-        require (accessInformation[student_address][_from], "You cannot access this student certification");
+        require (today - accessInformation[student_address][_from] < 3600, "You cannot access this student certification");
         return certifications[student_address];
     }
 
-    function giveAccess(address _address) external {
+    function giveAccess(address _address, uint date) external {
         require (hasRole(STUDENT_ROLE, msg.sender), 'You dont have certification!');
-        accessInformation[msg.sender][_address] = true;
-    }
-    
-    function removeAccess(address _address) external {
-        require (hasRole(STUDENT_ROLE, msg.sender), 'You dont have certification!');
-        require (!hasRole(INSTITUTE_ROLE, _address), 'You cannot remove access from Institute role!');
-        require (_address != msg.sender, 'You cannot remove access from yourself!');
-        require (accessInformation[msg.sender][_address], 'Target address has not access to certification!');
-        accessInformation[msg.sender][_address] = false;
+        accessInformation[msg.sender][_address] = date;
     }
 
-    function getAccessStatus(address _student, address _company) external view returns (bool) {
-        return accessInformation[_student][_company];
-    }
     function renounceRole(bytes32 role, address account) public override{
         revert("disabled");
     }

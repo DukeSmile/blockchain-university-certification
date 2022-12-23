@@ -7,7 +7,6 @@ import manLogo from '../assets/images/man.png';
 import { PhotoUpload } from '../components/photoUpload';
 import { setUploadFile } from '../core/app/slices/certificationReducer';
 
-
 const LayoutHeader = () => {
   const dispatch = useDispatch();
   const [loadimg, setLoadimg] = useState(false);
@@ -19,7 +18,7 @@ const LayoutHeader = () => {
   useEffect(() => {
     let imgUrl = manLogo;
     if (location.pathname === '/') {
-      imgUrl = (studentInfo.photo === '' || studentInfo.photo === undefined) ? manLogo : "https://ipfs.io/ipfs/" + studentInfo.photo;
+      imgUrl = (studentInfo.photo === '' || studentInfo.photo === undefined) ? manLogo : ("https://ipfs.io/ipfs/" + studentInfo.photo);
     }
     if (location.pathname === '/create') {
       imgUrl = uploadFile ? URL.createObjectURL(uploadFile) : manLogo;
@@ -28,7 +27,7 @@ const LayoutHeader = () => {
       imgUrl = (studentInfo.photo === '' || studentInfo.photo === undefined) ? manLogo : "https://ipfs.io/ipfs/" + studentInfo.photo;
     }
     setStudentLogo(imgUrl);
-  },[location.pathname, uploadFile]);
+  },[location.pathname, uploadFile, studentInfo]);
   return ( 
     <div className="w-[80%] mx-auto text-24 font-bold">
       <Grid container spacing={1} className="flex items-center py-10">

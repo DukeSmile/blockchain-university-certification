@@ -27,7 +27,7 @@ export const WatchCertificationPage = () => {
     }
     let certContract = getContract();
     try {
-      const certification = await certContract.methods.getCertification(address, address).call();
+      const certification = await certContract.methods.getCertification(address, address, 0).call();
       const processInfo:processProp[] = [];
       certification['processes'].forEach((process:string) => {
         const processJson = JSON.parse(process);
@@ -43,7 +43,7 @@ export const WatchCertificationPage = () => {
         date: certification['date'],
         process: processInfo
       };
-      console.log(processInfo);
+      // console.log(studentInfo);
       dispatch(initStudentInfo(studentInfo));
     }
     catch(e:any){
@@ -100,7 +100,7 @@ export const WatchCertificationPage = () => {
                 {
                   studentDetail['detail'].split('\n').map((detail: string, index: number) => {
                     return (
-                      <div>{detail}</div>
+                      <div key={index}>{detail}</div>
                     )
                   })
                 }
@@ -139,7 +139,7 @@ export const WatchCertificationPage = () => {
                                 {
                                   process['detail']?.split('\n').map((detail:string, index:number) => {
                                     return (
-                                      <div>{detail}</div>
+                                      <div key={index}>{detail}</div>
                                     )
                                   })
                                 }
