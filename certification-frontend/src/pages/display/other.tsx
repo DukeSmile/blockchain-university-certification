@@ -158,7 +158,7 @@ export const WatchOtherCertificationPage = () => {
                               {
                                 process['detail']?.split('\n').map((detail:string, index:number) => {
                                   return (
-                                    <div>{detail}</div>
+                                    <div key={index}>{detail}</div>
                                   )
                                 })
                               }
